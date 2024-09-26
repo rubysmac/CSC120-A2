@@ -50,14 +50,13 @@ class ResaleShop:
     def refurbish(self, refurbishing_computer, new_os: Optional[str] = None):
         if refurbishing_computer in self.inventory:
             if int(refurbishing_computer.year_made) < 2000:
-                refurbishing_computer.year_made = 0 # too old to sell, donation only
+                refurbishing_computer.price = 0 # too old to sell, donation only
             elif int(refurbishing_computer.year_made) < 2012:
-                refurbishing_computer.year_made = 250 # heavily-discounted price on machines 10+ years old
+                refurbishing_computer.price = 250 # heavily-discounted price on machines 10+ years old
             elif int(refurbishing_computer.year_made) < 2018:
-                refurbishing_computer.year_made = 550 # discounted price on machines 4-to-10 year old machines
+                refurbishing_computer.price = 550 # discounted price on machines 4-to-10 year old machines
             else:
-                refurbishing_computer.year_made = 1000 # recent stuff
-
+                refurbishing_computer.price = 1000 # recent stuff
             if new_os is not None:
                 refurbishing_computer.operating_system = new_os # update details after installing new OS
             print(f'Successfully refurbished ->\nprice: {refurbishing_computer.price}, system: {refurbishing_computer.operating_system}')
@@ -66,7 +65,6 @@ class ResaleShop:
     
 def main():
     my_ResaleShop = ResaleShop()
-
     my_computer = Computer("Mac Pro (Late 2013)",
         "3.5 GHc 6-Core Intel Xeon E5",
         1024, 64,
@@ -77,7 +75,6 @@ def main():
         1024, 64,
         "macOS Big Sur", 2013, 1500
     )
-    
     my_ResaleShop.buy(my_computer)
     my_ResaleShop.buy(my_computer2)
     my_ResaleShop.update_price(my_computer, 3000)
